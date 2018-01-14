@@ -20,4 +20,6 @@
               (state/toggle-player))
           (println "input value invalid, retry!")))
       (recur (take-user-input))))
-  )
+  (if @state/current-player
+    (println "Player 2 wins!!")
+    (println "Player 1 wins!!")))
