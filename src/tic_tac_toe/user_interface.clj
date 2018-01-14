@@ -7,7 +7,11 @@
   (str/split string #"\s+"))
 
 (defn take-user-input []
-  (into [] (map #(Integer/parseInt %) (split-by-whitespace (read-line)))))
+  (try
+    (into [] (map #(Integer/parseInt %) (split-by-whitespace (read-line))))
+    (catch Exception e
+      (println "Error, retry! Entry should be integers seperated by spaces")
+      [-1 -1])))
 
 (defn process []
   (loop [input (take-user-input)]
