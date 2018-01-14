@@ -16,7 +16,8 @@
             y-coordinate (input 1)]
         (if (state/update-state-possible? x-coordinate y-coordinate)
           (do (state/update-state! x-coordinate y-coordinate)
-              (state/display-state))
+              (state/display-state)
+              (state/toggle-player))
           (println "input value invalid, retry!")))
       (recur (take-user-input))))
   )
