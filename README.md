@@ -1,36 +1,11 @@
 # tic-tac-toe
 
-FIXME: description
-
+This is the implementation of tic-tac-toe in clojure where 2 players can
+play against each other.
 ## Installation
-
-Download from http://example.com/FIXME.
+Run lein deps to install the dependencies
 
 ## Usage
 
-FIXME: explanation
+lein run to run the game
 
-    $ java -jar tic-tac-toe-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2018 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
