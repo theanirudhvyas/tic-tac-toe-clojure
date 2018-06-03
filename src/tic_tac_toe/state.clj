@@ -25,10 +25,13 @@
 (defn index-in-bounds? [x-coordinate y-coordinate]
   (and (> x-coordinate -1) (< x-coordinate 3) (> y-coordinate -1) (< y-coordinate 3)))
 
-(defn get-state-at [x-coordinate y-coordinate]
-  (if (index-in-bounds? x-coordinate y-coordinate)
-    (get @state-of-game (translate-coordinates x-coordinate y-coordinate))
-    nil))
+(defn get-state-at
+  ([x-coordinate y-coordinate]
+   (get-state-at @state-of-game x-coordinate y-coordinate))
+  ([board x-coordinate y-coordinate]
+   (if (index-in-bounds? x-coordinate y-coordinate)
+     (get board (translate-coordinates x-coordinate y-coordinate))
+     nil)))
 
 (defn update-state-possible? [x-coordinate y-coordinate]
   (if (index-in-bounds? x-coordinate y-coordinate)
@@ -57,3 +60,8 @@
               (conj available-pos %)
               available-pos)
            (range 9))))))
+
+(defn turn-player-2? []
+  (if (@current-player)
+    false
+    true))

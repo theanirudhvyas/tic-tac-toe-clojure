@@ -28,5 +28,5 @@
           (println "input value invalid, retry!")))
       (recur (take-user-input))))
   (if @state/current-player
-    (println "Computer wins!!")
-    (println "Player 1 wins!!")))
+    (println "Player 1 wins!!")
+    (println "Computer wins!!")))
