@@ -62,6 +62,6 @@
            (range 9))))))
 
 (defn turn-player-2? []
-  (if (@current-player)
+  (if @current-player
     false
     true))
