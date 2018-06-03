@@ -3,13 +3,13 @@
             [tic-tac-toe.state :as state]))
 
 (defn reset-state-value []
-  (reset! state/state-of-game [[0 0 0] [0 0 0] [0 0 0]]))
+  (reset! state/state-of-game [0 0 0 0 0 0 0 0 0]))
 
 (deftest update-state-test
   (testing "set an unset state when coordinates are passed"
     (let [x-coordinate 1
           y-coordinate 2
-          expected-state [[0 0 0] [0 0 1] [0 0 0]]]
+          expected-state [0 0 0 0 0 1 0 0 0]]
       (reset-state-value)
       (with-redefs [state/current-player (atom true)]
         (state/update-state! x-coordinate y-coordinate)
@@ -24,7 +24,7 @@
              (= (state/update-state-possible? 2 1) true)
              (= (state/update-state-possible? 0 0) true))))
   (testing "updating is not possible if values are already set"
-    (reset! state/state-of-game [[1 0 1] [1 1 1] [0 1 0]])
+    (reset! state/state-of-game [1 0 1 1 1 1 0 1 0])
     (is (and (= (state/update-state-possible? 0 0) false)
              (= (state/update-state-possible? 0 1) true)
              (= (state/update-state-possible? 1 1) false)
@@ -32,7 +32,7 @@
 
 (deftest get-state-at-test
   (testing "gets the value of the state at given coordinates"
-    (with-redefs [state/state-of-game (atom [[0 0 0] [0 0 1] [0 0 0]])]
+    (with-redefs [state/state-of-game (atom [0 0 0 0 0 1 0 0 0])]
       (is (and (= (state/get-state-at 1 2) 1)
                (= (state/get-state-at 1 1) 0))))))
 
