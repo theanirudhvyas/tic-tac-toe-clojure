@@ -1,7 +1,8 @@
 (ns tic-tac-toe.user-interface
   (:require [tic-tac-toe.state :as state]
             [tic-tac-toe.domain-logic :refer [winning-state?]]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [tic-tac-toe.minimax :as ai]))
 
 (defn split-by-whitespace [string]
   (str/split string #"\s+"))
@@ -20,10 +21,12 @@
             y-coordinate (input 1)]
         (if (state/update-state-possible? x-coordinate y-coordinate)
           (do (state/update-state! x-coordinate y-coordinate)
+              (state/toggle-player)
+              (state/update-state! (ai/select-random-position))
               (state/display-state)
               (state/toggle-player))
           (println "input value invalid, retry!")))
       (recur (take-user-input))))
   (if @state/current-player
-    (println "Player 2 wins!!")
+    (println "Computer wins!!")
     (println "Player 1 wins!!")))

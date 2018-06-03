@@ -14,10 +14,13 @@
     :else " "))
 
 
-(defn update-state! [x y]
-  (if @current-player
-    (swap! state-of-game update-in [(translate-coordinates x y)] + 1)
-    (swap! state-of-game update-in [(translate-coordinates x y)] + 2)))
+(defn update-state!
+  ([x y]
+   (update-state! (translate-coordinates x y)))
+  ([position]
+   (if @current-player
+     (swap! state-of-game update-in [position] + 1)
+     (swap! state-of-game update-in [position] + 2))))
 
 (defn index-in-bounds? [x-coordinate y-coordinate]
   (and (> x-coordinate -1) (< x-coordinate 3) (> y-coordinate -1) (< y-coordinate 3)))
@@ -41,7 +44,16 @@
   (println (str "| " (get-marker (@state-of-game 6)) " | " (get-marker (@state-of-game 7)) " | " (get-marker (@state-of-game 8)) " |"))
   (println "-------------"))
 
-
-
 (defn toggle-player []
   (swap! current-player not))
+
+(defn available-positions
+  ([]
+   (available-positions @state-of-game))
+  ([board]
+   (let [available-pos []]
+     (flatten
+      (map #(if (= (get board %) 0)
+              (conj available-pos %)
+              available-pos)
+           (range 9))))))
