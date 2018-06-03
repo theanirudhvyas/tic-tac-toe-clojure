@@ -4,8 +4,15 @@
 
 (def current-player (atom true))
 
-(defn translate-coordinates [x-coordinate y-coordinate]
+(defn- translate-coordinates [x-coordinate y-coordinate]
   (+ (* 3 x-coordinate) y-coordinate))
+
+(defn- get-marker [value]
+  (cond
+    (= value 1) "X"
+    (= value 2) "O"
+    :else " "))
+
 
 (defn update-state! [x y]
   (if @current-player
@@ -26,18 +33,14 @@
     false))
 
 (defn display-state []
-  (doseq [row @state-of-game]
-    (do
-      (println "-------------")
-      (print "| ")
-      (doseq [col row]
-          (do
-            (cond
-              (= col 1) (print (str "X" " | "))
-              (= col 2) (print (str "O" " | "))
-              :else (print (str " " " | ")))))
-      (print "\n")))
+  (println "-------------")
+  (println (str "| " (get-marker (@state-of-game 0)) " | " (get-marker(@state-of-game 1)) " | " (get-marker (@state-of-game 2)) " |"))
+  (println "-------------")
+  (println (str "| " (get-marker (@state-of-game 3)) " | " (get-marker (@state-of-game 4)) " | " (get-marker (@state-of-game 5)) " |"))
+  (println "-------------")
+  (println (str "| " (get-marker (@state-of-game 6)) " | " (get-marker (@state-of-game 7)) " | " (get-marker (@state-of-game 8)) " |"))
   (println "-------------"))
+
 
 
 (defn toggle-player []
