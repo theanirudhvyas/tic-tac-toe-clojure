@@ -8,14 +8,16 @@
 
 (defn select-random-position []
   (let [available-positions (state/available-positions)]
-    (rand-nth available-positions)))
+    (if (not-empty available-positions)
+      (rand-nth available-positions)
+      0)))
 
 (defn update-board [board position]
   (if (state/turn-player-2?)
     (update-in board [position] + 2)
     (update-in board [position] + 1)))
 
-(defn calculate-score [board position]
+(defn calculate-score [board position computer-turn?]
   (let [new-board (update-board board position)]
     (if (domain-logic/winning-state? new-board)
       [position 10]
@@ -25,5 +27,5 @@
 
 (defn select-winning-position [board]
   (let [available-positions (state/available-positions board)
-        scores (map #(calculate-score board %) available-positions)]
+        scores (map #(calculate-score board % true) available-positions)]
     (get (last (sort-by second scores)) 0)))

@@ -16,7 +16,7 @@
 
 (defn process []
   (loop [input (take-user-input)]
-    (when-not (winning-state?)
+    (when-not (and (winning-state?) (not-empty (state/available-positions)))
       (let [x-coordinate (input 0)
             y-coordinate (input 1)]
         (if (state/update-state-possible? x-coordinate y-coordinate)
@@ -27,6 +27,8 @@
               (state/toggle-player))
           (println "input value invalid, retry!")))
       (recur (take-user-input))))
-  (if @state/current-player
-    (println "Player 1 wins!!")
-    (println "Computer wins!!")))
+  (if (winning-state?)
+    (if @state/current-player
+     (println "Player 1 wins!!")
+     (println "Computer wins!!"))
+    (println "It is a tie!")))
