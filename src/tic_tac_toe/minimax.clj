@@ -25,7 +25,10 @@
 
 (def board [2 2 0 1 0 0 1 0 0])
 
-(defn select-winning-position [board]
-  (let [available-positions (state/available-positions board)
-        scores (map #(calculate-score board % true) available-positions)]
-    (get (last (sort-by second scores)) 0)))
+(defn select-winning-position
+  ([]
+    (select-winning-position @state/state-of-game))
+  ([board]
+   (let [available-positions (state/available-positions board)
+         scores              (map #(calculate-score board % true) available-positions)]
+     (get (last (sort-by second scores)) 0))))
