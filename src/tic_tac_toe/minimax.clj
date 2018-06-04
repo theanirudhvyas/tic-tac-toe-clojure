@@ -8,7 +8,9 @@
 
 (defn select-random-position []
   (let [available-positions (state/available-positions)]
-    (rand-nth available-positions)))
+    (if (not-empty available-positions)
+      (rand-nth available-positions)
+      0)))
 
 (defn update-board [board position]
   (if (state/turn-player-2?)
